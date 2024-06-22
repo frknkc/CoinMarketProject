@@ -42,15 +42,6 @@ namespace CoinMarketProject
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// UsernameLiteral denetimi.
-        /// </summary>
-        /// <remarks>
-        /// Otomatik olarak oluşturulan alan.
-        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal UsernameLiteral;
-
-        /// <summary>
         /// LogoutButton denetimi.
         /// </summary>
         /// <remarks>
@@ -58,6 +49,15 @@ namespace CoinMarketProject
         /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button LogoutButton;
+
+        /// <summary>
+        /// UsernameLiteral denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal UsernameLiteral;
 
         /// <summary>
         /// ErrorMessageLiteral denetimi.

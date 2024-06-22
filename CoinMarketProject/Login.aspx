@@ -62,37 +62,12 @@
         .login-form {
             width: 100%;
         }
+        
+}
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container market-table-container">
-            <h2>Anlık Fiyatlar</h2>
-            <div class="market-item">
-                <img src="https://example.com/btc-icon.png" alt="BTC">
-                <div class="info">
-                    <h5>BTC-USDT</h5>
-                    <div class="price"><asp:Label ID="BtcUsdtLabel" runat="server" Text="12345.67"></asp:Label> USD</div>
-                </div>
-                <div class="change" id="BtcChangeLabel">+1.23%</div>
-            </div>
-            <div class="market-item">
-                <img src="https://example.com/eth-icon.png" alt="ETH">
-                <div class="info">
-                    <h5>ETH-USDT</h5>
-                    <div class="price"><asp:Label ID="EthUsdtLabel" runat="server" Text="2345.67"></asp:Label> USD</div>
-                </div>
-                <div class="change negative" id="EthChangeLabel">-0.45%</div>
-            </div>
-            <div class="market-item">
-                <img src="https://example.com/usdt-icon.png" alt="USDT">
-                <div class="info">
-                    <h5>USDT-TRY</h5>
-                    <div class="price"><asp:Label ID="UsdtTryLabel" runat="server" Text="8.67"></asp:Label> TRY</div>
-                </div>
-                <div class="change" id="UsdtChangeLabel">+0.10%</div>
-            </div>
-        </div>
 
         <div class="login-container">
             <div class="login-form">

@@ -9,8 +9,17 @@ namespace CoinMarketProject
 {
     public partial class Login : System.Web.UI.Page
     {
+        private CoinApiService coinApiService = new CoinApiService();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (Session["ApiKey"] != null)
+                {
+                    UpdateCryptoPrices();
+                }
+            }
         }
 
         protected void LoginButton_Click(object sender, EventArgs e)
@@ -45,5 +54,46 @@ namespace CoinMarketProject
             }
         }
 
+        private void UpdateCryptoPrices()
+        {
+            if (Session["ApiKey"] != null)
+            {
+                string apiKey = Session["ApiKey"].ToString();
+
+                try
+                {
+                    decimal btcCurrentPrice = coinApiService.GetCurrentPrice("BTC", apiKey);
+                    decimal ethCurrentPrice = coinApiService.GetCurrentPrice("ETH", apiKey);
+                    decimal usdtCurrentPrice = coinApiService.GetCurrentPrice("USDT", apiKey);
+
+                    DateTime yesterday = DateTime.Now.AddDays(-1).Date.AddHours(1); // Dünkü saat 01:00
+                    decimal btcHistoricalPrice = coinApiService.GetHistoricalPrice("BTC", apiKey, yesterday);
+                    decimal ethHistoricalPrice = coinApiService.GetHistoricalPrice("ETH", apiKey, yesterday);
+                    decimal usdtHistoricalPrice = coinApiService.GetHistoricalPrice("USDT", apiKey, yesterday);
+
+                    //BtcUsdtLabel.Text = btcCurrentPrice.ToString("F2");
+                    //EthUsdtLabel.Text = ethCurrentPrice.ToString("F2");
+                    //UsdtTryLabel.Text = usdtCurrentPrice.ToString("F2");
+
+                    //// Değişim yüzdelerini hesaplayın
+                    //BtcChangeLabel.Text = CalculatePercentageChange(btcHistoricalPrice, btcCurrentPrice).ToString("F2") + "%";
+                    //EthChangeLabel.Text = CalculatePercentageChange(ethHistoricalPrice, ethCurrentPrice).ToString("F2") + "%";
+                    //UsdtChangeLabel.InnerText = CalculatePercentageChange(usdtHistoricalPrice, usdtCurrentPrice).ToString("F2") + "%";
+                }
+                catch (Exception ex)
+                {
+                    ErrorLabel.Text = $"Fiyatlar güncellenirken hata oluştu: {ex.Message}";
+                }
+            }
+            else
+            {
+                ErrorLabel.Text = "API anahtarı bulunamadı.";
+            }
+        }
+
+        private decimal CalculatePercentageChange(decimal oldPrice, decimal newPrice)
+        {
+            return ((newPrice - oldPrice) / oldPrice) * 100;
+        }
     }
 }
