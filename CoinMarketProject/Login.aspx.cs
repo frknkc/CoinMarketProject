@@ -38,7 +38,7 @@ namespace CoinMarketProject
                     Session["ApiKey"] = apiKey;
                     int userId = dataAccess.GetUserId(username);
                     Session["UserId"] = userId;
-                    Response.Redirect("accountSettings.aspx");
+                    Response.Redirect("Dashboard.aspx");
                 }
                 else
                 {
