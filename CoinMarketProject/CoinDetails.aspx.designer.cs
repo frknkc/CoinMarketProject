@@ -15,6 +15,15 @@ namespace CoinMarketProject
     {
 
         /// <summary>
+        /// log denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label log;
+
+        /// <summary>
         /// CoinNameLabel denetimi.
         /// </summary>
         /// <remarks>
@@ -31,5 +40,23 @@ namespace CoinMarketProject
         /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CurrentPriceLabel;
+
+        /// <summary>
+        /// CoinCodeHiddenField denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField CoinCodeHiddenField;
+
+        /// <summary>
+        /// HistoricalPricesHiddenField denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HistoricalPricesHiddenField;
     }
 }

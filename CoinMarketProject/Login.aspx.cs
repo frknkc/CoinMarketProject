@@ -15,27 +15,35 @@ namespace CoinMarketProject
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            if (Page.IsValid)
+            try
             {
-                string username = UsernameTextBox.Text;
-                string password = PasswordTextBox.Text;
-
-                DataAccess dataAccess = new DataAccess();
-                string apiKey = dataAccess.GetApiKey(username, password);
-
-                if (apiKey != null)
+                if (Page.IsValid)
                 {
-                    Session["Username"] = username;
-                    Session["ApiKey"] = apiKey;
-                    int userId = dataAccess.GetUserId(username);
-                    Session["UserId"] = userId;
-                    Response.Redirect("Dashboard.aspx");
-                }
-                else
-                {
-                    ErrorLabel.Text = "Kullanıcı adı veya parola yanlış.";
+                    string username = UsernameTextBox.Text;
+                    string password = PasswordTextBox.Text;
+
+                    DataAccess dataAccess = new DataAccess();
+                    string apiKey = dataAccess.GetApiKey(username, password);
+
+                    if (apiKey != null)
+                    {
+                        Session["Username"] = username;
+                        Session["ApiKey"] = apiKey;
+                        int userId = dataAccess.GetUserId(username);
+                        Session["UserId"] = userId;
+                        Response.Redirect("AccountSettings.aspx");
+                    }
+                    else
+                    {
+                        ErrorLabel.Text = "Kullanıcı adı veya parola yanlış.";
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorLabel.Text = "Bir hata oluştu: " + ex.Message;
+            }
         }
+
     }
 }

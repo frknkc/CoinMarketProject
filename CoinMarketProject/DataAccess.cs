@@ -43,18 +43,27 @@ namespace CoinMarketProject
 
         public string GetApiKey(string username, string password)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT ApiKey FROM Users WHERE Username = @Username AND Password = @Password";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT ApiKey FROM Users WHERE Username = @Username AND Password = @Password";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Password", password);
 
-                connection.Open();
-                object result = command.ExecuteScalar();
-                return result != null ? result.ToString() : null;
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    return result != null ? result.ToString() : null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Daha ayrıntılı hata bilgisi için loglama yapılabilir
+                throw new Exception("GetApiKey hatası: " + ex.Message);
             }
         }
+
 
         public void UpdateApiKey(string username, string apiKey)
         {
@@ -102,15 +111,23 @@ namespace CoinMarketProject
 
         public int GetUserId(string username)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT UserId FROM Users WHERE Username = @Username";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Username", username);
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT UserId FROM Users WHERE Username = @Username";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", username);
 
-                connection.Open();
-                object result = command.ExecuteScalar();
-                return result != null ? (int)result : 0;
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    return result != null ? (int)result : 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Daha ayrıntılı hata bilgisi için loglama yapılabilir
+                throw new Exception("GetUserId hatası: " + ex.Message);
             }
         }
 

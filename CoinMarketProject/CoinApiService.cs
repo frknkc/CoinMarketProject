@@ -16,15 +16,27 @@ namespace CoinMarketProject
             var date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             request.AddQueryParameter("time", date);
             request.AddHeader("X-CoinAPI-Key", apiKey);
-            var response = client.Execute<T>(request);
+            var response = client.Execute(request);
 
             if (response.IsSuccessful)
             {
-                return JsonConvert.DeserializeObject<T>(response.Content);
+                try
+                {
+                    // Yanıt içeriğini kontrol edin
+                    var content = response.Content;
+                    Console.WriteLine("Response Content: " + content);
+
+                    // JSON dönüşümü
+                    return JsonConvert.DeserializeObject<T>(content);
+                }
+                catch (JsonException ex)
+                {
+                    throw new Exception("JSON parsing error: " + ex.Message);
+                }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                throw new Exception("Request failed: " + response.ErrorMessage);
             }
         }
 
@@ -86,7 +98,51 @@ namespace CoinMarketProject
             // Here we sort by PriceUsd and take the top 10 coins
             return topCoins.Count > 10 ? topCoins.GetRange(0, 10) : topCoins;
         }
+
+        public List<HistoricalPrice> GetHistoricalPrices(string assetId, string apiKey, DateTime startDate, DateTime endDate)
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest($"v1/exchangerate/{assetId}/USD/history", Method.Get);
+            request.AddQueryParameter("period_id", "10DAY"); // 10 günlük periyot
+            request.AddQueryParameter("time_start", startDate.ToString("yyyy-MM-ddTHH:mm:ss"));
+            request.AddQueryParameter("time_end", endDate.ToString("yyyy-MM-ddTHH:mm:ss"));
+            request.AddHeader("X-CoinAPI-Key", apiKey);
+            var response = client.Execute(request);
+            
+            // Print the response content
+            //throw new Exception("Response Content: " + response.Content);
+
+            if (response.IsSuccessful)
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<List<HistoricalPrice>>(response.Content);
+                }
+                catch (JsonException ex)
+                {
+                    throw new Exception("JSON parsing error: " + ex.Message);
+                }
+            }
+            else
+            {
+                throw new Exception("Request failed: " + response.Content);
+            }
+        }
+
     }
+
+    public class HistoricalPrice
+    {
+        public DateTime time_period_start { get; set; }
+        public DateTime time_period_end { get; set; }
+        public DateTime time_open { get; set; }
+        public DateTime time_close { get; set; }
+        public double rate_open { get; set; }
+        public double rate_high { get; set; }
+        public double rate_low { get; set; }
+        public double rate_close { get; set; }
+    }
+
 
     public class MyCoin
     {
