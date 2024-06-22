@@ -62,35 +62,40 @@
         .login-form {
             width: 100%;
         }
+        
+}
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container market-table-container">
+        <div class="bg container market-table-container">
             <h2>Anlık Fiyatlar</h2>
             <div class="market-item">
-                <img src="https://example.com/btc-icon.png" alt="BTC">
+                <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png" alt="BTC">
                 <div class="info">
                     <h5>BTC-USDT</h5>
-                    <div class="price"><asp:Label ID="BtcUsdtLabel" runat="server" Text="12345.67"></asp:Label> USD</div>
+                    <div class="price"><asp:Label ID="BtcUsdtLabel" runat="server"></asp:Label> USDT</div>
                 </div>
-                <div class="change" id="BtcChangeLabel">+1.23%</div>
+                <asp:Label ID="BtcChangeLabel" runat="server" CssClass="change"></asp:Label>
+                <div class="change" id="BtcChangeLabel1"></div>
             </div>
             <div class="market-item">
-                <img src="https://example.com/eth-icon.png" alt="ETH">
+                <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png" alt="ETH">
                 <div class="info">
                     <h5>ETH-USDT</h5>
-                    <div class="price"><asp:Label ID="EthUsdtLabel" runat="server" Text="2345.67"></asp:Label> USD</div>
+                    <div class="price">
+                        <asp:Label ID="EthUsdtLabel" runat="server"></asp:Label> USDT</div>
                 </div>
-                <div class="change negative" id="EthChangeLabel">-0.45%</div>
+                <asp:Label ID="EthChangeLabel" runat="server" CssClass="change"></asp:Label>
+                <div class="change negative" id="EthChangeLabel1"></div>
             </div>
             <div class="market-item">
-                <img src="https://example.com/usdt-icon.png" alt="USDT">
+                <img src="https://cdn.investing.com/crypto-logos/20x20/v2/tether.png" alt="USDT">
                 <div class="info">
                     <h5>USDT-TRY</h5>
-                    <div class="price"><asp:Label ID="UsdtTryLabel" runat="server" Text="8.67"></asp:Label> TRY</div>
+                    <div class="price"><asp:Label ID="UsdtTryLabel" runat="server"></asp:Label> TRY</div>
                 </div>
-                <div class="change" id="UsdtChangeLabel">+0.10%</div>
+                <div class="change" id="UsdtChangeLabel"></div>
             </div>
         </div>
 

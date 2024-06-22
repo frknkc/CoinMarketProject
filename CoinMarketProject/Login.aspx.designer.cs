@@ -33,6 +33,15 @@ namespace CoinMarketProject
         protected global::System.Web.UI.WebControls.Label BtcUsdtLabel;
 
         /// <summary>
+        /// BtcChangeLabel denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BtcChangeLabel;
+
+        /// <summary>
         /// EthUsdtLabel denetimi.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace CoinMarketProject
         /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label EthUsdtLabel;
+
+        /// <summary>
+        /// EthChangeLabel denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label EthChangeLabel;
 
         /// <summary>
         /// UsdtTryLabel denetimi.

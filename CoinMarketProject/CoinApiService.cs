@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using CoinAPI.REST.V1;
 
 namespace CoinMarketProject
 {
@@ -66,7 +67,39 @@ namespace CoinMarketProject
                 //throw new Exception($"Error getting current price for {assetId}: {ex.Message}");
             }
         }
+        public T GetCoinDataByTime<T>(string endpoint, string apiKey,DateTime time) where T : new()
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest(endpoint, Method.Get);
+            var date = DateTime.Now.AddDays(-1).Date.AddHours(1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            request.AddQueryParameter("time", date);
+            request.AddHeader("X-CoinAPI-Key", apiKey);
+            var response = client.Execute<T>(request);
 
+            if (response.IsSuccessful)
+            {
+                return JsonConvert.DeserializeObject<T>(response.Content);
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+        }
+        public decimal GetHistoricalPrice(string assetId, string apiKey, DateTime dateTime)
+        {
+            try
+            {
+                //get historical price for assetId
+                var endpoint = $"v1/exchangerate/{assetId}/USD";
+                var rate = GetCoinDataByTime<ExchangeRate>(endpoint, apiKey,dateTime);
+                return rate.rate;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+                //throw new Exception($"Error getting current price for {assetId}: {ex.Message}");
+            }
+        }
         public List<Coin> GetTopCoins(string apiKey)
         {
             var assets = GetCoinData<List<MyCoin>>("v1/assets", apiKey);
