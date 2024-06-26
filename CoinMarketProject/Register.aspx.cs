@@ -32,5 +32,10 @@ namespace CoinMarketProject
                 }
             }
         }
+        protected void ReturnLoginButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        
     }
 }
