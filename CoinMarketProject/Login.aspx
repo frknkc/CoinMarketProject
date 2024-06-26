@@ -122,11 +122,23 @@
             background: linear-gradient(#1845ad, #23a2f6);
             left: -80px;
             top: -80px;
+            animation: move1 5s infinite alternate;
         }
         .background .shape:last-child {
             background: linear-gradient(to right, #ff512f, #f09819);
             right: -30px;
             bottom: -80px;
+            animation: move2 5s infinite alternate;
+        }
+
+        @keyframes move1 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        @keyframes move2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
         }
     </style>
 </head>
