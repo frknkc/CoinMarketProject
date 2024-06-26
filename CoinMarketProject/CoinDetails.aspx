@@ -1,12 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CoinDetails.aspx.cs" Inherits="CoinMarketProject.CoinDetails" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Coin Details
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="log" runat="server" Text=""></asp:Label>
     <div class="container">
-        <h1 id="CoinNameLabel" runat="server"></h1>
-        <h2 id="CurrentPriceLabel" runat="server"></h2>
+        <asp:GridView ID="CoinLogsView" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
+            <Columns>
+                <asp:BoundField DataField="CoinName" HeaderText="Coin Adı" />
+                <asp:BoundField DataField="PurchasePrice" HeaderText="Alış Fiyatı" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="Quantity" HeaderText="Miktar" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="CurrentPrice" HeaderText="Anlık Fiyat" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="ProfitLoss" HeaderText="Kâr/Zarar" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="ProfitLossPercentage" HeaderText="Kâr/Zarar (%)" DataFormatString="{0:F4}" />
+            </Columns>
+        </asp:GridView>
         <input type="number" id="YearsInput" max="4" onchange="updateChart()" />
         <asp:HiddenField ID="CoinCodeHiddenField" runat="server" />
         <asp:HiddenField ID="HistoricalPricesHiddenField" runat="server" />

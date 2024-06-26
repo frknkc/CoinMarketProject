@@ -169,5 +169,34 @@ namespace CoinMarketProject
                 return dt;
             }
         }
+
+        public DataTable GetCoinById(string coinId, int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Define the query to get the Coin by Id but owned by the user
+                string query = @"
+            SELECT pi.* 
+            FROM PortfolioItems pi
+            INNER JOIN Portfolios p ON pi.PortfolioId = p.PortfolioId
+            INNER JOIN Users u ON p.UserId = u.UserId
+            WHERE pi.CoinName = @CoinId AND u.UserId = @UserId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Add parameters to prevent SQL injection
+                    command.Parameters.AddWithValue("@CoinId", coinId);
+                    command.Parameters.AddWithValue("@UserId", userId);
+
+                    // Create a data adapter to fill the DataTable
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
     }
 }

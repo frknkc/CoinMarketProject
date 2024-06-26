@@ -24,22 +24,13 @@ namespace CoinMarketProject
         protected global::System.Web.UI.WebControls.Label log;
 
         /// <summary>
-        /// CoinNameLabel denetimi.
+        /// CoinLogsView denetimi.
         /// </summary>
         /// <remarks>
         /// Otomatik olarak oluşturulan alan.
         /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CoinNameLabel;
-
-        /// <summary>
-        /// CurrentPriceLabel denetimi.
-        /// </summary>
-        /// <remarks>
-        /// Otomatik olarak oluşturulan alan.
-        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CurrentPriceLabel;
+        protected global::System.Web.UI.WebControls.GridView CoinLogsView;
 
         /// <summary>
         /// CoinCodeHiddenField denetimi.
