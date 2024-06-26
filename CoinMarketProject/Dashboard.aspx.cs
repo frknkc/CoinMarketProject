@@ -34,6 +34,11 @@ namespace CoinMarketProject
             string coinName = SearchTextBox.Text.ToUpper();
             Response.Redirect($"/CoinDetails.aspx?coinId={coinName}&years=1");
         }
+        protected void LogoutButton_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
         private void UpdateCryptoPrices()
         {
             if (Session["ApiKey"] != null)
