@@ -17,7 +17,7 @@
             <asp:DropDownList ID="CoinDropDownList" runat="server" CssClass="form-control"></asp:DropDownList>
         </div>
         <div class="form-group">
-            <label for="PurchasePriceTextBox">Alış Fiyatı:</label>
+            <label for="PurchasePriceTextBox">Maliyet:</label>
             <asp:TextBox ID="PurchasePriceTextBox" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
         <div class="form-group">
