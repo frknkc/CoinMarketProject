@@ -97,15 +97,52 @@ namespace CoinMarketProject
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO PortfolioItems (PortfolioId, CoinName, PurchasePrice, Quantity) VALUES (@PortfolioId, @CoinName, @PurchasePrice, @Quantity)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@PortfolioId", portfolioId);
-                command.Parameters.AddWithValue("@CoinName", coinName);
-                command.Parameters.AddWithValue("@PurchasePrice", purchasePrice);
-                command.Parameters.AddWithValue("@Quantity", quantity);
+                string selectQuery = "SELECT PurchasePrice, Quantity FROM PortfolioItems WHERE PortfolioId = @PortfolioId AND CoinName = @CoinName";
+                SqlCommand selectCommand = new SqlCommand(selectQuery, connection);
+                selectCommand.Parameters.AddWithValue("@PortfolioId", portfolioId);
+                selectCommand.Parameters.AddWithValue("@CoinName", coinName);
 
                 connection.Open();
-                command.ExecuteNonQuery();
+
+                using (SqlDataReader reader = selectCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // Coin already exists in the portfolio, update the entry
+                        decimal existingPurchasePrice = reader.GetDecimal(0);
+                        decimal existingQuantity = reader.GetDecimal(1);
+
+                        // Calculate new average purchase price
+                        decimal totalCost = (existingPurchasePrice * existingQuantity) + (purchasePrice * quantity);
+                        decimal newQuantity = existingQuantity + quantity;
+                        decimal newAveragePurchasePrice = totalCost / newQuantity;
+
+                        reader.Close();
+
+                        string updateQuery = "UPDATE PortfolioItems SET PurchasePrice = @NewPurchasePrice, Quantity = @NewQuantity WHERE PortfolioId = @PortfolioId AND CoinName = @CoinName";
+                        SqlCommand updateCommand = new SqlCommand(updateQuery, connection);
+                        updateCommand.Parameters.AddWithValue("@NewPurchasePrice", newAveragePurchasePrice);
+                        updateCommand.Parameters.AddWithValue("@NewQuantity", newQuantity);
+                        updateCommand.Parameters.AddWithValue("@PortfolioId", portfolioId);
+                        updateCommand.Parameters.AddWithValue("@CoinName", coinName);
+
+                        updateCommand.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        // Coin does not exist in the portfolio, insert a new entry
+                        reader.Close();
+
+                        string insertQuery = "INSERT INTO PortfolioItems (PortfolioId, CoinName, PurchasePrice, Quantity) VALUES (@PortfolioId, @CoinName, @PurchasePrice, @Quantity)";
+                        SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
+                        insertCommand.Parameters.AddWithValue("@PortfolioId", portfolioId);
+                        insertCommand.Parameters.AddWithValue("@CoinName", coinName);
+                        insertCommand.Parameters.AddWithValue("@PurchasePrice", purchasePrice);
+                        insertCommand.Parameters.AddWithValue("@Quantity", quantity);
+
+                        insertCommand.ExecuteNonQuery();
+                    }
+                }
             }
         }
 
@@ -128,6 +165,33 @@ namespace CoinMarketProject
             {
                 // Daha ayrıntılı hata bilgisi için loglama yapılabilir
                 throw new Exception("GetUserId hatası: " + ex.Message);
+            }
+        }
+
+        public void DeletePortfolioItem(int portfolioId, string coinName)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "DELETE FROM PortfolioItems WHERE PortfolioId = @PortfolioId AND CoinName = @CoinName";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PortfolioId", portfolioId);
+                command.Parameters.AddWithValue("@CoinName", coinName);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeletePortfolio(int portfolioId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "DELETE FROM Portfolios WHERE PortfolioId = @PortfolioId AND PortfolioName <> 'Default'";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PortfolioId", portfolioId);
+
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 

@@ -2,6 +2,10 @@
 using System.Data;
 using System.Collections.Generic;
 using System.Web.UI;
+using System.Xml.Schema;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+using System.Web.UI.DataVisualization.Charting;
 
 namespace CoinMarketProject
 {
@@ -49,9 +53,23 @@ namespace CoinMarketProject
             string coinName = CoinDropDownList.SelectedValue;
             decimal purchasePrice = Convert.ToDecimal(PurchasePriceTextBox.Text);
             decimal quantity = Convert.ToDecimal(QuantityTextBox.Text);
-
+            QuantityTextBox.Text = string.Empty;
+            PurchasePriceTextBox.Text = string.Empty;
+            CoinDropDownList.SelectedIndex = 0;
             dataAccess.AddPortfolioItem(portfolioId, coinName, purchasePrice, quantity);
             LoadPortfolioItems(portfolioId);
+        }
+
+        protected void DeletePortfolioButton_Click(object sender, EventArgs e)
+        {
+            int portfolioId = Convert.ToInt32(PortfolioDropDownList.SelectedValue);
+            dataAccess.DeletePortfolio(portfolioId);
+            LoadPortfolios(); // Reload the portfolios into the dropdown
+            PortfolioGridView.DataSource = null; // Clear the portfolio details grid
+            PortfolioGridView.DataBind();
+            Label1.Text = string.Empty;
+            Label2.Text = string.Empty;
+            Label3.Text = string.Empty;
         }
 
         private void LoadPortfolios()
@@ -75,7 +93,9 @@ namespace CoinMarketProject
             dt.Columns.Add("CurrentPrice");
             dt.Columns.Add("ProfitLoss");
             dt.Columns.Add("ProfitLossPercentage");
-
+            decimal totalkar = 0;
+            decimal totalsuan = 0;
+            decimal totalyatir = 0;
             string apiKey = Session["ApiKey"].ToString();
 
             foreach (DataRow row in portfolioItems.Rows)
@@ -89,7 +109,10 @@ namespace CoinMarketProject
                 decimal totalCurrentPrice = currentPrice * quantity;
                 decimal profitLoss = totalCurrentPrice - totalPurchasePrice;
                 decimal profitLossPercentage = (profitLoss / totalPurchasePrice) * 100;
-
+                totalkar += profitLoss;
+                totalsuan += totalCurrentPrice;
+                totalyatir += totalPurchasePrice;
+                
                 DataRow newRow = dt.NewRow();
                 newRow["CoinName"] = coinName;
                 newRow["PurchasePrice"] = purchasePrice.ToString("F4");
@@ -97,12 +120,16 @@ namespace CoinMarketProject
                 newRow["CurrentPrice"] = currentPrice.ToString("F4");
                 newRow["ProfitLoss"] = profitLoss.ToString("F4");
                 newRow["ProfitLossPercentage"] = profitLossPercentage.ToString("F4");
-
+                
                 dt.Rows.Add(newRow);
             }
 
             PortfolioGridView.DataSource = dt;
             PortfolioGridView.DataBind();
+
+            Label1.Text = "Toplam Yatırım: " + totalyatir.ToString("F4")+ " USD"; 
+            Label2.Text = "Toplam Şuandaki Değer: "+ totalsuan.ToString("F4") + " USD";
+            Label3.Text = "Toplam Kâr/Zarar: " + totalkar.ToString("F4") + " USD";
         }
 
         protected void PortfolioDropDownList_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,5 +148,29 @@ namespace CoinMarketProject
             CoinDropDownList.DataValueField = "asset_id";
             CoinDropDownList.DataBind();
         }
+
+
+protected void PortfolioGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DeleteCoin" || e.CommandName == "ViewDetails")
+            {
+                int portfolioId = Convert.ToInt32(PortfolioDropDownList.SelectedValue);
+                string coinName = e.CommandArgument.ToString();
+
+                if (e.CommandName == "DeleteCoin")
+                {
+                    dataAccess.DeletePortfolioItem(portfolioId, coinName);
+                    LoadPortfolioItems(portfolioId);
+                }
+                else if (e.CommandName == "ViewDetails")
+                {
+                    Response.Redirect($"/CoinDetails.aspx?coinId={coinName}&years=1");
+                }
+            }
+        }
+
+        
     }
+
+
 }
