@@ -12,39 +12,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h2, h3 {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .table {
-            margin-bottom: 20px;
-        }
-
-        .navbar {
-            margin-bottom: 20px;
-        }
-
-        .content {
-            margin-top: 20px;
-        }
-
-    </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="#">CoinMarket</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -52,16 +24,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="Dashboard.aspx"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a class="nav-link nav-color" href="Dashboard.aspx"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Portfolio.aspx"><i class="fas fa-wallet"></i> Portföyüm</a>
+                        <a class="nav-link nav-color" href="Portfolio.aspx"><i class="fas fa-wallet"></i>Portföyüm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="AccountSettings.aspx"><i class="fas fa-cog"></i> Hesap Ayarları</a>
+                        <a class="nav-link nav-color" href="AccountSettings.aspx"><i class="fas fa-cog"></i>Hesap Ayarları</a>
                     </li>
                     <li class="nav-item">
-                        <asp:Button ID="LogoutButton" runat="server" CssClass="btn btn-danger nav-link" Text="Çıkış Yap" OnClick="LogoutButton_Click" />
+                        <asp:Button ID="LogoutButton" runat="server" CssClass="btn btn-danger nav-link nav-color" Text="Çıkış Yap" OnClick="LogoutButton_Click" />
+                    </li>
+                    <li class="nav-item">
+                        <asp:Button ID="ChangeThemeButton" runat="server" Text="Tema Değiştir" CssClass="btn btn-secondary nav-link nav-color change-theme" OnClick="ChangeThemeButton_Click" />
                     </li>
                 </ul>
             </div>
@@ -70,12 +45,17 @@
             <div class="text-center">
                 <img src="https://via.placeholder.com/100" class="rounded-circle" alt="Avatar" />
                 <h3>
-                    <asp:Literal ID="UsernameLiteral" runat="server" /></h3>
+                    <asp:Literal ID="UsernameLiteral" runat="server" />
+                </h3>
             </div>
             <asp:Literal ID="ErrorMessageLiteral" runat="server" EnableViewState="false" />
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
     </form>
+    <footer class="footer">
+        <p>&copy; 2024 CoinMarket. All rights reserved.</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-moment/0.1.0/chartjs-adapter-moment.min.js"></script>

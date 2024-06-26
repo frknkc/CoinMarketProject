@@ -16,7 +16,8 @@
                 <asp:BoundField DataField="ProfitLossPercentage" HeaderText="Kâr/Zarar (%)" DataFormatString="{0:F4}" />
             </Columns>
         </asp:GridView>
-        <input type="number" id="YearsInput" max="4" onchange="updateChart()" />
+        <input type="number" id="YearsInput" max="4" />
+        <button class="btn button-primary" type="button" onclick="updateChart()">Güncelle</button>
         <asp:HiddenField ID="CoinCodeHiddenField" runat="server" />
         <asp:HiddenField ID="HistoricalPricesHiddenField" runat="server" />
         <canvas id="priceChart" width="800" height="400"></canvas>
@@ -26,7 +27,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-moment/0.1.0/chartjs-adapter-moment.min.js"></script>
     <script type="text/javascript">
-        // Write updateChart function that gets the value of the input and changes the query params years= and then fetches the data from the API
         function updateChart() {
             var years = document.getElementById('YearsInput').value;
             var url = new URL(window.location.href);
@@ -35,7 +35,6 @@
         }
 
         $(document).ready(function () {
-            // Set YearsInput value to the query param years
             var years = new URLSearchParams(window.location.search).get('years');
             document.getElementById('YearsInput').value = years;
 

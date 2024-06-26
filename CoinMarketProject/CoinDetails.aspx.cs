@@ -28,7 +28,16 @@ namespace CoinMarketProject
                     if (int.TryParse(Request.QueryString["years"], out years))
                     {
                         LoadCoinDetails(coinId);
-                        LoadHistoricalPrices(coinId, years);
+                        try
+                        {
+                            LoadHistoricalPrices(coinId, years);
+                        }
+                        catch (Exception ex)
+                        {
+                            var master = (Site)this.Master;
+                            master.ShowErrorMessage($"API anahtarı geçersiz veya eksik. Lütfen Hesap Ayarları'ndan API anahtarınızı güncelleyin. Hata: {ex.Message}");
+                            Response.Redirect("AccountSettings.aspx");
+                        }
                     }
                 }
             }

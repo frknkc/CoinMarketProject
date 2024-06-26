@@ -1,0 +1,219 @@
+﻿body {
+    background-color: #F8F9FA;
+    color: #212529;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #F7931A;
+}
+
+p {
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    .table th, .table td {
+        border: 1px solid #DEE2E6;
+        padding: 12px;
+        text-align: left;
+        color: #212529;
+    }
+
+    .table th {
+        background-color: #F7931A;
+        color: #FFFFFF;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #F8F9FA;
+    }
+
+.navbar {
+    background-color: #F7931A;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+}
+
+    .navbar a {
+        color: #FFFFFF;
+        text-decoration: none;
+        margin-right: 15px;
+    }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+.nav-color {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.button-primary {
+    background-color: #F7931A;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+    .button-primary:hover {
+        background-color: #D77A12;
+    }
+
+.button-secondary {
+    background-color: #FFFFFF;
+    color: #212529;
+    border: 1px solid #DEE2E6;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+    .button-secondary:hover {
+        background-color: #E0E0E0;
+    }
+
+.button-danger {
+    background-color: #E53935;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+    .button-danger:hover {
+        background-color: #D32F2F;
+    }
+
+.card {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #F7931A;
+}
+
+.card-content {
+    font-size: 16px;
+    color: #495057;
+}
+
+.highlight-profit {
+    color: #4CAF50;
+}
+
+.highlight-loss {
+    color: #E53935;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #FFFFFF;
+    color: #495057;
+    margin-top: 40px;
+}
+
+    .footer a {
+        color: #F7931A;
+        text-decoration: none;
+    }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Form Elemanları */
+.form-control {
+    background-color: #FFFFFF;
+    color: #212529;
+    border: 1px solid #DEE2E6;
+}
+
+    .form-control:focus {
+        border-color: #F7931A;
+        box-shadow: 0 0 5px rgba(247, 147, 26, 0.5);
+    }
+
+/* Özel Bileşenler */
+.market-table-container {
+    margin-top: 50px;
+}
+
+.market-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #DEE2E6;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+
+    .market-item img {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+    }
+
+    .market-item .info {
+        flex: 1;
+    }
+
+        .market-item .info h5 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #F7931A;
+        }
+
+        .market-item .info .price {
+            font-size: 1rem;
+            color: #495057;
+        }
+
+    .market-item .change {
+        font-size: 1rem;
+        color: #4CAF50;
+    }
+
+        .market-item .change.negative {
+            color: #E53935;
+        }
+
+.change-theme {
+    margin-left: 5px;
+}
