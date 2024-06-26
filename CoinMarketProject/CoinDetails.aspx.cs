@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.UI;
 
@@ -8,6 +9,7 @@ namespace CoinMarketProject
 {
     public partial class CoinDetails : System.Web.UI.Page
     {
+        private DataAccess dataAccess = new DataAccess();
         private CoinApiService _coinApiService = new CoinApiService();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -25,8 +27,17 @@ namespace CoinMarketProject
                     int years = 1;
                     if (int.TryParse(Request.QueryString["years"], out years))
                     {
-                        //LoadCoinDetails(coinId);
-                        LoadHistoricalPrices(coinId, years);
+                        LoadCoinDetails(coinId);
+                        try
+                        {
+                            LoadHistoricalPrices(coinId, years);
+                        }
+                        catch (Exception ex)
+                        {
+                            var master = (Site)this.Master;
+                            master.ShowErrorMessage($"API anahtarı geçersiz veya eksik. Lütfen Hesap Ayarları'ndan API anahtarınızı güncelleyin. Hata: {ex.Message}");
+                            Response.Redirect("AccountSettings.aspx");
+                        }
                     }
                 }
             }
@@ -34,10 +45,44 @@ namespace CoinMarketProject
 
         private void LoadCoinDetails(string coinId)
         {
+            int UserId = Convert.ToInt32(Session["UserId"]);
+            DataTable coin_logs = dataAccess.GetCoinById(coinId, UserId);
+
             string apiKey = Session["ApiKey"].ToString();
-            var coinDetails = _coinApiService.GetCoinData<MyCoinDetails>($"v1/assets/{coinId}", apiKey);
-            CoinNameLabel.InnerText = coinDetails.AssetId;
-            CurrentPriceLabel.InnerText = coinDetails.PriceUsd.ToString();
+            //var coinDetails = _coinApiService.GetCoinData<MyCoinDetails>($"v1/assets/{coinId}", apiKey);
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CoinName");
+            dt.Columns.Add("PurchasePrice");
+            dt.Columns.Add("Quantity");
+            dt.Columns.Add("CurrentPrice");
+            dt.Columns.Add("ProfitLoss");
+            dt.Columns.Add("ProfitLossPercentage");
+
+            foreach (DataRow row in coin_logs.Rows)
+            {
+                string coinName = row["CoinName"].ToString();
+                decimal purchasePrice = Convert.ToDecimal(row["PurchasePrice"]);
+                decimal quantity = Convert.ToDecimal(row["Quantity"]);
+                decimal currentPrice = _coinApiService.GetCurrentPrice(coinName, apiKey);
+
+                decimal totalPurchasePrice = purchasePrice * quantity;
+                decimal totalCurrentPrice = currentPrice * quantity;
+                decimal profitLoss = totalCurrentPrice - totalPurchasePrice;
+                decimal profitLossPercentage = (profitLoss / totalPurchasePrice) * 100;
+
+                DataRow newRow = dt.NewRow();
+                newRow["CoinName"] = coinName;
+                newRow["PurchasePrice"] = purchasePrice.ToString("F4");
+                newRow["Quantity"] = quantity.ToString("F4");
+                newRow["CurrentPrice"] = currentPrice.ToString("F4");
+                newRow["ProfitLoss"] = profitLoss.ToString("F4");
+                newRow["ProfitLossPercentage"] = profitLossPercentage.ToString("F4");
+
+                dt.Rows.Add(newRow);
+            }
+
+            CoinLogsView.DataSource = dt;
+            CoinLogsView.DataBind();
         }
 
         private void LoadHistoricalPrices(string coinId, int years)

@@ -1,13 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CoinDetails.aspx.cs" Inherits="CoinMarketProject.CoinDetails" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Coin Details
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="log" runat="server" Text=""></asp:Label>
     <div class="container">
-        <h1 id="CoinNameLabel" runat="server"></h1>
-        <h2 id="CurrentPriceLabel" runat="server"></h2>
-        <input type="number" id="YearsInput" max="4" onchange="updateChart()" />
+        <asp:GridView ID="CoinLogsView" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
+            <Columns>
+                <asp:BoundField DataField="CoinName" HeaderText="Coin Adı" />
+                <asp:BoundField DataField="PurchasePrice" HeaderText="Alış Fiyatı" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="Quantity" HeaderText="Miktar" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="CurrentPrice" HeaderText="Anlık Fiyat" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="ProfitLoss" HeaderText="Kâr/Zarar" DataFormatString="{0:F4}" />
+                <asp:BoundField DataField="ProfitLossPercentage" HeaderText="Kâr/Zarar (%)" DataFormatString="{0:F4}" />
+            </Columns>
+        </asp:GridView>
+        <input type="number" id="YearsInput" max="4" />
+        <button class="btn button-primary" type="button" onclick="updateChart()">Güncelle</button>
         <asp:HiddenField ID="CoinCodeHiddenField" runat="server" />
         <asp:HiddenField ID="HistoricalPricesHiddenField" runat="server" />
         <canvas id="priceChart" width="800" height="400"></canvas>
@@ -17,7 +27,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-moment/0.1.0/chartjs-adapter-moment.min.js"></script>
     <script type="text/javascript">
-        // Write updateChart function that gets the value of the input and changes the query params years= and then fetches the data from the API
         function updateChart() {
             var years = document.getElementById('YearsInput').value;
             var url = new URL(window.location.href);
@@ -26,7 +35,6 @@
         }
 
         $(document).ready(function () {
-            // Set YearsInput value to the query param years
             var years = new URLSearchParams(window.location.search).get('years');
             document.getElementById('YearsInput').value = years;
 

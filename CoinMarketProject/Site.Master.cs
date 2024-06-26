@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace CoinMarketProject
 {
@@ -19,6 +16,26 @@ namespace CoinMarketProject
             {
                 UsernameLiteral.Text = Session["Username"].ToString();
             }
+
+            // Tema seçimine göre CSS dosyasını yükle
+            string theme = Session["Theme"]?.ToString() ?? "Light";
+            string cssFile = theme == "Dark" ? "dark-theme.css" : "light-theme.css";
+            LiteralControl cssLink = new LiteralControl($"<link href='Style/{cssFile}' rel='stylesheet' />");
+            Page.Header.Controls.Add(cssLink);
+            ChangeThemeButton.Text = theme == "Dark" ? "Açık Tema" : "Koyu Tema";
+        }
+
+        protected void ChangeThemeButton_Click(object sender, EventArgs e)
+        {
+            if (Session["Theme"] == null || Session["Theme"].ToString() == "Light")
+            {
+                Session["Theme"] = "Dark";
+            }
+            else
+            {
+                Session["Theme"] = "Light";
+            }
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)

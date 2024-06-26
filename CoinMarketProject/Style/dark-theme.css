@@ -1,0 +1,220 @@
+﻿body {
+    background-color: #121212;
+    color: #BDBDBD;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #F7931A;
+}
+
+p {
+    margin-bottom: 20px;
+    color: #BDBDBD;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    .table th, .table td {
+        border: 1px solid #2D2D2D;
+        padding: 12px;
+        text-align: left;
+        color: #FFFFFF; /* Metin rengini beyaz yaparak görünürlüğü artırıyoruz */
+    }
+
+    .table th {
+        background-color: #F7931A;
+        color: #121212; /* Başlık metin rengini koyu yaparak okunabilirliği artırıyoruz */
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #1E1E1E;
+    }
+
+
+.navbar {
+    background-color: rgba(247, 147, 26, 0.9);
+    padding: 15px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin-right: 15px;
+    }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+.nav-color {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.button-primary {
+    background-color: #F7931A;
+    color: #121212;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+    .button-primary:hover {
+        background-color: #D77A12;
+    }
+
+.button-secondary {
+    background-color: #FFFFFF;
+    color: #121212;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+    .button-secondary:hover {
+        background-color: #E0E0E0;
+    }
+
+.button-danger {
+    background-color: #E53935;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+    .button-danger:hover {
+        background-color: #D32F2F;
+    }
+
+.card {
+    background-color: #1E1E1E;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.card-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #F7931A;
+}
+
+.card-content {
+    font-size: 16px;
+    color: #BDBDBD;
+}
+
+.highlight-profit {
+    color: #4CAF50;
+}
+
+.highlight-loss {
+    color: #E53935;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1E1E1E;
+    color: #BDBDBD;
+    margin-top: 40px;
+}
+
+    .footer a {
+        color: #F7931A;
+        text-decoration: none;
+    }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Form Elemanları */
+.form-control {
+    background-color: #1E1E1E;
+    color: #BDBDBD;
+    border: 1px solid #2D2D2D;
+}
+
+    .form-control:focus {
+        border-color: #F7931A;
+        box-shadow: 0 0 5px rgba(247, 147, 26, 0.5);
+    }
+
+/* Özel Bileşenler */
+.market-table-container {
+    margin-top: 50px;
+}
+
+.market-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #2D2D2D;
+    border-radius: 8px;
+    background-color: #1E1E1E;
+}
+
+    .market-item img {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+    }
+
+    .market-item .info {
+        flex: 1;
+    }
+
+        .market-item .info h5 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #F7931A;
+        }
+
+        .market-item .info .price {
+            font-size: 1rem;
+            color: #BDBDBD;
+        }
+
+    .market-item .change {
+        font-size: 1rem;
+        color: #4CAF50;
+    }
+
+        .market-item .change.negative {
+            color: #E53935;
+        }
+
+.change-theme {
+    margin-left: 5px;
+}

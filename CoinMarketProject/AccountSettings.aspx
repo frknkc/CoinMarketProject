@@ -6,8 +6,8 @@
             <label for="ApiKeyTextBox">API Key:</label>
             <asp:TextBox ID="ApiKeyTextBox" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
-        <asp:Button ID="SaveSettingsButton" runat="server" Text="Kaydet" CssClass="btn btn-primary" OnClick="SaveSettingsButton_Click" />
-        <asp:Button ID="TestApiKeyButton" runat="server" Text="API Key'i Test Et" CssClass="btn btn-secondary ml-2" OnClick="TestApiKeyButton_Click" />
+        <asp:Button ID="SaveSettingsButton" runat="server" Text="Kaydet" CssClass="btn button-primary" OnClick="SaveSettingsButton_Click" />
+        <asp:Button ID="TestApiKeyButton" runat="server" Text="API Key'i Test Et" CssClass="btn button-secondary ml-2" OnClick="TestApiKeyButton_Click" />
         <asp:Label ID="SuccessLabel" runat="server" CssClass="text-success mt-3"></asp:Label>
         <asp:Label ID="ErrorLabel" runat="server" CssClass="text-danger mt-3"></asp:Label>
     </div>

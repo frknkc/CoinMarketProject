@@ -241,8 +241,10 @@
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <Content Include="CoinDetails.aspx" />
+    <Content Include="Style\dark-theme.css" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Style\light-theme.css" />
     <Content Include="Login.aspx" />
     <Content Include="Portfolio.aspx" />
     <Content Include="Register.aspx" />
