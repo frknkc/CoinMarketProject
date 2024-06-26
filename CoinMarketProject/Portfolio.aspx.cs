@@ -115,11 +115,11 @@ namespace CoinMarketProject
                 
                 DataRow newRow = dt.NewRow();
                 newRow["CoinName"] = coinName;
-                newRow["PurchasePrice"] = purchasePrice.ToString("F4");
-                newRow["Quantity"] = quantity.ToString("F4");
-                newRow["CurrentPrice"] = currentPrice.ToString("F4");
-                newRow["ProfitLoss"] = profitLoss.ToString("F4");
-                newRow["ProfitLossPercentage"] = profitLossPercentage.ToString("F4");
+                newRow["PurchasePrice"] = purchasePrice.ToString("F10");
+                newRow["Quantity"] = quantity.ToString("F10");
+                newRow["CurrentPrice"] = currentPrice.ToString("F10");
+                newRow["ProfitLoss"] = profitLoss.ToString("F10");
+                newRow["ProfitLossPercentage"] = profitLossPercentage.ToString("F10");
                 
                 dt.Rows.Add(newRow);
             }
@@ -127,9 +127,9 @@ namespace CoinMarketProject
             PortfolioGridView.DataSource = dt;
             PortfolioGridView.DataBind();
 
-            Label1.Text = "Toplam Yatırım: " + totalyatir.ToString("F4")+ " USD"; 
-            Label2.Text = "Toplam Şuandaki Değer: "+ totalsuan.ToString("F4") + " USD";
-            Label3.Text = "Toplam Kâr/Zarar: " + totalkar.ToString("F4") + " USD";
+            Label1.Text = "Toplam Yatırım: " + totalyatir.ToString("F10") + " USD"; 
+            Label2.Text = "Toplam Şuandaki Değer: "+ totalsuan.ToString("F10") + " USD";
+            Label3.Text = "Toplam Kâr/Zarar: " + totalkar.ToString("F10") + " USD";
         }
 
         protected void PortfolioDropDownList_SelectedIndexChanged(object sender, EventArgs e)

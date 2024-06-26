@@ -71,16 +71,16 @@ namespace CoinMarketProject
                     decimal adaHistoricalPrice = _coinApiService.GetHistoricalPrice("ADA", apiKey, yesterday);
                     decimal dotHistoricalPrice = _coinApiService.GetHistoricalPrice("DOT", apiKey, yesterday);
 
-                    BtcUsdtLabel.Text = btcCurrentPrice.ToString("F2");
-                    EthUsdtLabel.Text = ethCurrentPrice.ToString("F2");
-                    XrpUsdtLabel.Text = xrpCurrentPrice.ToString("F2");
-                    UsdtUsdtLabel.Text = usdtCurrentPrice.ToString("F2");
-                    BnbUsdtLabel.Text = bnbCurrentPrice.ToString("F2");
-                    SolUsdtLabel.Text = solCurrentPrice.ToString("F2");
-                    DogeUsdtLabel.Text = dogeCurrentPrice.ToString("F2");
-                    TrxUsdtLabel.Text = trxCurrentPrice.ToString("F2");
-                    AdaUsdtLabel.Text = adaCurrentPrice.ToString("F2");
-                    DotUsdtLabel.Text = dotCurrentPrice.ToString("F2");
+                    BtcUsdtLabel.Text = btcCurrentPrice.ToString("F10");
+                    EthUsdtLabel.Text = ethCurrentPrice.ToString("F10");
+                    XrpUsdtLabel.Text = xrpCurrentPrice.ToString("F10");
+                    UsdtUsdtLabel.Text = usdtCurrentPrice.ToString("F10");
+                    BnbUsdtLabel.Text = bnbCurrentPrice.ToString("F10");
+                    SolUsdtLabel.Text = solCurrentPrice.ToString("F10");
+                    DogeUsdtLabel.Text = dogeCurrentPrice.ToString("F10");
+                    TrxUsdtLabel.Text = trxCurrentPrice.ToString("F10");
+                    AdaUsdtLabel.Text = adaCurrentPrice.ToString("F10");
+                    DotUsdtLabel.Text = dotCurrentPrice.ToString("F10");
 
                     SetChangeLabel(BtcChangeLabel, btcHistoricalPrice, btcCurrentPrice);
                     SetChangeLabel(EthChangeLabel, ethHistoricalPrice, ethCurrentPrice);
@@ -110,12 +110,12 @@ namespace CoinMarketProject
             if (change >= 0)
             {
                 changeLabel.CssClass = "change-positive";
-                changeLabel.Text = "+" + change.ToString("F2") + "%";
+                changeLabel.Text = "+" + change.ToString("F10") + "%";
             }
             else
             {
                 changeLabel.CssClass = "change-negative";
-                changeLabel.Text = change.ToString("F2") + "%";
+                changeLabel.Text = change.ToString("F10") + "%";
             }
         }
 
@@ -132,7 +132,7 @@ namespace CoinMarketProject
                 try
                 {
                     decimal currentPrice = _coinApiService.GetCurrentPrice(coinName, apiKey);
-                    SearchedCoinPriceLabel.Text = currentPrice.ToString("F2");
+                    SearchedCoinPriceLabel.Text = currentPrice.ToString("F10");
                     searchedCoinName.Text = coinName.ToUpper() + "- USDT";
                     searchedCoin.Visible = true;
                 }

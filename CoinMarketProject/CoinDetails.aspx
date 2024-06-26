@@ -16,6 +16,7 @@
                 <asp:BoundField DataField="ProfitLossPercentage" HeaderText="Kâr/Zarar (%)" DataFormatString="{0:F4}" />
             </Columns>
         </asp:GridView>
+        <label for="YearsInput">Yıl:</label>
         <input type="number" id="YearsInput" max="4" />
         <button class="btn button-primary" type="button" onclick="updateChart()">Güncelle</button>
         <asp:HiddenField ID="CoinCodeHiddenField" runat="server" />
