@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace CoinMarketProject
 {
@@ -28,7 +29,11 @@ namespace CoinMarketProject
                 }
             }
         }
-
+        protected void DetailsButton_Click(object sender, EventArgs e)
+        {
+            string coinName = SearchTextBox.Text.ToUpper();
+            Response.Redirect($"/CoinDetails.aspx?coinId={coinName}&years=1");
+        }
         private void UpdateCryptoPrices()
         {
             if (Session["ApiKey"] != null)
@@ -39,20 +44,49 @@ namespace CoinMarketProject
                 {
                     decimal btcCurrentPrice = _coinApiService.GetCurrentPrice("BTC", apiKey);
                     decimal ethCurrentPrice = _coinApiService.GetCurrentPrice("ETH", apiKey);
+                    decimal xrpCurrentPrice = _coinApiService.GetCurrentPrice("XRP", apiKey);
                     decimal usdtCurrentPrice = _coinApiService.GetCurrentPrice("USDT", apiKey);
+                    decimal bnbCurrentPrice = _coinApiService.GetCurrentPrice("BNB", apiKey);
+                    decimal solCurrentPrice = _coinApiService.GetCurrentPrice("SOL", apiKey);
+                    decimal dogeCurrentPrice = _coinApiService.GetCurrentPrice("DOGE", apiKey);
+                    decimal trxCurrentPrice = _coinApiService.GetCurrentPrice("TRX", apiKey);
+                    decimal adaCurrentPrice = _coinApiService.GetCurrentPrice("ADA", apiKey);
+                    decimal dotCurrentPrice = _coinApiService.GetCurrentPrice("DOT", apiKey);
 
                     DateTime yesterday = DateTime.Now.AddDays(-1).Date.AddHours(1);
                     decimal btcHistoricalPrice = _coinApiService.GetHistoricalPrice("BTC", apiKey, yesterday);
                     decimal ethHistoricalPrice = _coinApiService.GetHistoricalPrice("ETH", apiKey, yesterday);
+                    decimal xrpHistoricalPrice = _coinApiService.GetHistoricalPrice("XRP", apiKey, yesterday);
                     decimal usdtHistoricalPrice = _coinApiService.GetHistoricalPrice("USDT", apiKey, yesterday);
+                    decimal bnbHistoricalPrice = _coinApiService.GetHistoricalPrice("BNB", apiKey, yesterday);
+                    decimal solHistoricalPrice = _coinApiService.GetHistoricalPrice("SOL", apiKey, yesterday);
+                    decimal dogeHistoricalPrice = _coinApiService.GetHistoricalPrice("DOGE", apiKey, yesterday);
+                    decimal trxHistoricalPrice = _coinApiService.GetHistoricalPrice("TRX", apiKey, yesterday);
+                    decimal adaHistoricalPrice = _coinApiService.GetHistoricalPrice("ADA", apiKey, yesterday);
+                    decimal dotHistoricalPrice = _coinApiService.GetHistoricalPrice("DOT", apiKey, yesterday);
 
                     BtcUsdtLabel.Text = btcCurrentPrice.ToString("F2");
                     EthUsdtLabel.Text = ethCurrentPrice.ToString("F2");
-                    
+                    XrpUsdtLabel.Text = xrpCurrentPrice.ToString("F2");
+                    UsdtUsdtLabel.Text = usdtCurrentPrice.ToString("F2");
+                    BnbUsdtLabel.Text = bnbCurrentPrice.ToString("F2");
+                    SolUsdtLabel.Text = solCurrentPrice.ToString("F2");
+                    DogeUsdtLabel.Text = dogeCurrentPrice.ToString("F2");
+                    TrxUsdtLabel.Text = trxCurrentPrice.ToString("F2");
+                    AdaUsdtLabel.Text = adaCurrentPrice.ToString("F2");
+                    DotUsdtLabel.Text = dotCurrentPrice.ToString("F2");
 
-                    BtcChangeLabel.Text = CalculatePercentageChange(btcHistoricalPrice, btcCurrentPrice).ToString("F2") + "%";
-                    EthChangeLabel.Text = CalculatePercentageChange(ethHistoricalPrice, ethCurrentPrice).ToString("F2") + "%";
-                    }
+                    SetChangeLabel(BtcChangeLabel, btcHistoricalPrice, btcCurrentPrice);
+                    SetChangeLabel(EthChangeLabel, ethHistoricalPrice, ethCurrentPrice);
+                    SetChangeLabel(XrpChangeLabel, xrpHistoricalPrice, xrpCurrentPrice);
+                    SetChangeLabel(UsdtChangeLabel, usdtHistoricalPrice, usdtCurrentPrice);
+                    SetChangeLabel(BnbChangeLabel, bnbHistoricalPrice, bnbCurrentPrice);
+                    SetChangeLabel(SolChangeLabel, solHistoricalPrice, solCurrentPrice);
+                    SetChangeLabel(DogeChangeLabel, dogeHistoricalPrice, dogeCurrentPrice);
+                    SetChangeLabel(TrxChangeLabel, trxHistoricalPrice, trxCurrentPrice);
+                    SetChangeLabel(AdaChangeLabel, adaHistoricalPrice, adaCurrentPrice);
+                    SetChangeLabel(DotChangeLabel, dotHistoricalPrice, dotCurrentPrice);
+                }
                 catch (Exception ex)
                 {
                     ShowErrorMessage($"Fiyatlar güncellenirken hata oluştu: {ex.Message}");
@@ -64,6 +98,25 @@ namespace CoinMarketProject
             }
         }
 
+        private void SetChangeLabel(System.Web.UI.WebControls.Label changeLabel, decimal oldPrice, decimal newPrice)
+        {
+            decimal change = CalculatePercentageChange(oldPrice, newPrice);
+            if (change >= 0)
+            {
+                changeLabel.CssClass = "change-positive";
+                changeLabel.Text = "+" + change.ToString("F2") + "%";
+            }
+            else
+            {
+                changeLabel.CssClass = "change-negative";
+                changeLabel.Text = change.ToString("F2") + "%";
+            }
+        }
+
+        private decimal CalculatePercentageChange(decimal oldPrice, decimal newPrice)
+        {
+            return ((newPrice - oldPrice) / oldPrice) * 100;
+        }
         protected void SearchButton_Click(object sender, EventArgs e)
         {
             string coinName = SearchTextBox.Text.Trim();
@@ -74,7 +127,7 @@ namespace CoinMarketProject
                 {
                     decimal currentPrice = _coinApiService.GetCurrentPrice(coinName, apiKey);
                     SearchedCoinPriceLabel.Text = currentPrice.ToString("F2");
-                    searchedCoinName.Text = coinName + "-USDT";
+                    searchedCoinName.Text = coinName.ToUpper() + "- USDT";
                     searchedCoin.Visible = true;
                 }
                 catch (Exception ex)
@@ -84,10 +137,7 @@ namespace CoinMarketProject
             }
         }
 
-        private decimal CalculatePercentageChange(decimal oldPrice, decimal newPrice)
-        {
-            return ((newPrice - oldPrice) / oldPrice) * 100;
-        }
+        
 
         private void ShowErrorMessage(string message)
         {
