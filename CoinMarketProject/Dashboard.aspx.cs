@@ -29,6 +29,11 @@ namespace CoinMarketProject
                 }
             }
         }
+        protected void LogoutButton_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
         protected void DetailsButton_Click(object sender, EventArgs e)
         {
             string coinName = SearchTextBox.Text.ToUpper();
