@@ -40,52 +40,6 @@ namespace CoinMarketProject
 
             }
         }
-        public PortfolioItem GetPortfolioItem(int portfolioId, string coinName)
-        {
-            // Veritabanı bağlantısı ve sorgu
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = "SELECT * FROM PortfolioItems WHERE PortfolioId = @PortfolioId AND CoinName = @CoinName";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@PortfolioId", portfolioId);
-                cmd.Parameters.AddWithValue("@CoinName", coinName);
-
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    return new PortfolioItem
-                    {
-                        CoinName = reader["CoinName"].ToString(),
-                        PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"]),
-                        Quantity = Convert.ToDecimal(reader["Quantity"])
-                    };
-                }
-                return null;
-            }
-        }
-        public class PortfolioItem
-        {
-            public string CoinName { get; set; }
-            public decimal PurchasePrice { get; set; }
-            public decimal Quantity { get; set; }
-        }
-        public void UpdatePortfolioItem(int portfolioId, string coinName, decimal purchasePrice, decimal quantity)
-        {
-            // Veritabanı bağlantısı ve güncelleme sorgusu
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = "UPDATE PortfolioItems SET PurchasePrice = @PurchasePrice, Quantity = @Quantity WHERE PortfolioId = @PortfolioId AND CoinName = @CoinName";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@PortfolioId", portfolioId);
-                cmd.Parameters.AddWithValue("@CoinName", coinName);
-                cmd.Parameters.AddWithValue("@PurchasePrice", purchasePrice);
-                cmd.Parameters.AddWithValue("@Quantity", quantity);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
        
         public string GetApiKey(string username, string password)
         {

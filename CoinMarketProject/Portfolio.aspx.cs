@@ -53,32 +53,11 @@ namespace CoinMarketProject
             string coinName = CoinDropDownList.SelectedValue;
             decimal purchasePrice = Convert.ToDecimal(PurchasePriceTextBox.Text);
             decimal quantity = Convert.ToDecimal(QuantityTextBox.Text);
-
-            var existingCoin = dataAccess.GetPortfolioItem(portfolioId, coinName);
-            if (existingCoin != null)
-            {
-                decimal newQuantity = existingCoin.Quantity + quantity;
-                decimal newPurchasePrice = ((existingCoin.Quantity * existingCoin.PurchasePrice) + (quantity * purchasePrice)) / newQuantity;
-                dataAccess.UpdatePortfolioItem(portfolioId, coinName, newPurchasePrice, newQuantity);
-            }
-            else
-            {
-                dataAccess.AddPortfolioItem(portfolioId, coinName, purchasePrice, quantity);
-            }
-
             QuantityTextBox.Text = string.Empty;
             PurchasePriceTextBox.Text = string.Empty;
             CoinDropDownList.SelectedIndex = 0;
+            dataAccess.AddPortfolioItem(portfolioId, coinName, purchasePrice, quantity);
             LoadPortfolioItems(portfolioId);
-            //int portfolioId = Convert.ToInt32(PortfolioDropDownList.SelectedValue);
-            //string coinName = CoinDropDownList.SelectedValue;
-            //decimal purchasePrice = Convert.ToDecimal(PurchasePriceTextBox.Text);
-            //decimal quantity = Convert.ToDecimal(QuantityTextBox.Text);
-            //QuantityTextBox.Text = string.Empty;
-            //PurchasePriceTextBox.Text = string.Empty;
-            //CoinDropDownList.SelectedIndex = 0;
-            //dataAccess.AddPortfolioItem(portfolioId, coinName, purchasePrice, quantity);
-            //LoadPortfolioItems(portfolioId);
         }
         
         protected void DeletePortfolioButton_Click(object sender, EventArgs e)
