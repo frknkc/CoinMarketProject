@@ -110,7 +110,7 @@
         <div class="search-container mt-5">
     <h2>Coin Ara</h2>
     <asp:TextBox ID="SearchTextBox" runat="server" CssClass="form-control" placeholder="Coin ismi girin..."></asp:TextBox>
-    <asp:Button ID="SearchButton" runat="server" Text="Ara" CssClass="btn btn-primary mt-2" OnClick="SearchButton_Click" />
+    <asp:Button ID="SearchButton" runat="server" Text="Ara" CssClass="btn button-primary mt-2" OnClick="SearchButton_Click" />
     <div id="searchResult" class="mt-3">
         <div class="card" id="searchedCoin" runat="server" visible="false">
             <div class="card-body">
