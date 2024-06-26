@@ -262,5 +262,66 @@ namespace CoinMarketProject
                 }
             }
         }
+        public string GetUserRole(string username)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT Role FROM Users WHERE Username = @Username";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    return result != null ? result.ToString() : null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Daha ayrıntılı hata bilgisi için loglama yapılabilir
+                throw new Exception("GetUserRole hatası: " + ex.Message);
+            }
+        }
+        public DataTable GetAllUsers()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT UserId, Username, Email, FullName, Role, CreatedDate FROM Users", conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+        }
+
+        public void DeleteUser(int userId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM Users WHERE UserId = @UserId", conn);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public void ChangeUserRole(int userId, string newRole)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Users SET Role = @NewRole WHERE UserId = @UserId";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@NewRole", newRole);
+                command.Parameters.AddWithValue("@UserId", userId);
+
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    throw new Exception("Kullanıcı bulunamadı veya rol güncellenemedi.");
+                }
+            }
+        }
     }
 }

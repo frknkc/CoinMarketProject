@@ -15,7 +15,21 @@ namespace CoinMarketProject
             else
             {
                 UsernameLiteral.Text = Session["Username"].ToString();
+                DataAccess dataAccess = new DataAccess();
+                // Kullanıcı rolünü kontrol et ve Admin paneli butonunu görünür yap
+                string username = Session["Username"].ToString();
+                string userRole = dataAccess.GetUserRole(username);
+
+                if (userRole == "Admin")
+                {
+                    AdminPlaceholder.Visible = true;
+                }
+                else
+                {
+                    AdminPlaceholder.Visible = false;
+                }
             }
+
 
             // Tema seçimine göre CSS dosyasını yükle
             string theme = Session["Theme"]?.ToString() ?? "Light";
