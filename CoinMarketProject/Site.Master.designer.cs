@@ -42,6 +42,15 @@ namespace CoinMarketProject
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// AdminPlaceholder denetimi.
+        /// </summary>
+        /// <remarks>
+        /// Otomatik olarak oluşturulan alan.
+        /// Değiştirmek için, alan bildirimini tasarımcı dosyasından arka plan kod dosyasına taşıyın.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder AdminPlaceholder;
+
+        /// <summary>
         /// LogoutButton denetimi.
         /// </summary>
         /// <remarks>

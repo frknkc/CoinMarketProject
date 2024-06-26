@@ -32,6 +32,11 @@
                     <li class="nav-item">
                         <a class="nav-link nav-color" href="AccountSettings.aspx"><i class="fas fa-cog"></i>Hesap Ayarları</a>
                     </li>
+                    <asp:PlaceHolder ID="AdminPlaceholder" runat="server">
+                        <li class="nav-item">
+                            <a class="nav-link nav-color" href="AdminDashboard.aspx"><i class="fas fa-user-shield"></i>Admin Panel</a>
+                        </li>
+                    </asp:PlaceHolder>
                     <li class="nav-item">
                         <asp:Button ID="LogoutButton" runat="server" CssClass="btn btn-danger nav-link nav-color" Text="Çıkış Yap" OnClick="LogoutButton_Click" />
                     </li>
